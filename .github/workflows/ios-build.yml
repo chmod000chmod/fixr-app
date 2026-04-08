@@ -1,0 +1,37 @@
+name: iOS Simulator Build
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'fixr-ios/**'
+  pull_request:
+    paths:
+      - 'fixr-ios/**'
+
+jobs:
+  build:
+    runs-on: macos-15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: sudo xcode-select -switch /Applications/Xcode_16.app
+
+      - name: Build for Simulator
+        run: |
+          xcodebuild \
+            -project fixr-ios/Fixr.xcodeproj \
+            -scheme Fixr \
+            -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=18.0' \
+            -configuration Debug \
+            build | xcpretty
+
+      - name: Run Tests
+        run: |
+          xcodebuild test \
+            -project fixr-ios/Fixr.xcodeproj \
+            -scheme Fixr \
+            -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=18.0' \
+            | xcpretty
