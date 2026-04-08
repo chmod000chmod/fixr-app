@@ -1,0 +1,7 @@
+{
+  "name": "Fixr — Role Select (Fixer State)",
+  "id": "fixr-role-fixer-state",
+  "api": "1.0.0",
+  "main": "code.js",
+  "editorType": ["figma"]
+}

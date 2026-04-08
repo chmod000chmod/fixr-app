@@ -1,0 +1,7 @@
+{
+  "name": "Fixr — Alignment & Spacing Fixer",
+  "id": "fixr-alignment-fixer-v1",
+  "api": "1.0.0",
+  "main": "code.js",
+  "editorType": ["figma"]
+}
