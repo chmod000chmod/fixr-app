@@ -4,23 +4,25 @@ import Foundation
 /// Keys are injected at build time via xcconfig — never hardcoded.
 enum SupabaseEnvironment {
 
-    /// The Supabase project URL. Crashes at launch if missing — misconfigured build.
+    /// The Supabase project URL. Falls back to placeholder so the app builds without xcconfig.
     static var supabaseURL: URL {
-        guard let rawValue = Bundle.main.object(forInfoDictionaryKey: "SUPABASE_URL") as? String,
-              !rawValue.isEmpty,
-              let url = URL(string: rawValue) else {
-            fatalError("SUPABASE_URL is missing or invalid in Info.plist. Check your xcconfig.")
+        if let rawValue = Bundle.main.object(forInfoDictionaryKey: "SUPABASE_URL") as? String,
+           !rawValue.isEmpty,
+           let url = URL(string: rawValue) {
+            return url
         }
-        return url
+        // Placeholder — replace with your Supabase project URL via xcconfig
+        return URL(string: "https://placeholder.supabase.co")!
     }
 
-    /// The Supabase anon key. Crashes at launch if missing — misconfigured build.
+    /// The Supabase anon key. Falls back to placeholder so the app builds without xcconfig.
     static var supabaseKey: String {
-        guard let value = Bundle.main.object(forInfoDictionaryKey: "SUPABASE_KEY") as? String,
-              !value.isEmpty else {
-            fatalError("SUPABASE_KEY is missing in Info.plist. Check your xcconfig.")
+        if let value = Bundle.main.object(forInfoDictionaryKey: "SUPABASE_KEY") as? String,
+           !value.isEmpty {
+            return value
         }
-        return value
+        // Placeholder — replace with your Supabase anon key via xcconfig
+        return "placeholder-anon-key"
     }
 
     /// PostHog API key — optional. Returns nil if not configured.

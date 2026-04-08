@@ -9,14 +9,7 @@ extension SupabaseClient {
     static let shared: SupabaseClient = {
         SupabaseClient(
             supabaseURL: SupabaseEnvironment.supabaseURL,
-            supabaseKey: SupabaseEnvironment.supabaseKey,
-            options: SupabaseClientOptions(
-                auth: SupabaseClientOptions.AuthOptions(
-                    storage: KeychainLocalStorage(service: "com.fixr.app", accessGroup: nil),
-                    flowType: .pkce,
-                    autoRefreshToken: true
-                )
-            )
+            supabaseKey: SupabaseEnvironment.supabaseKey
         )
     }()
 }
